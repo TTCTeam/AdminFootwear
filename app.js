@@ -7,6 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var hbs = require('hbs');
+hbs.registerPartials(__dirname, 'views/partials');
+
 var app = express();
 
 // view engine setup
