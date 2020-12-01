@@ -1,0 +1,126 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">AdminStrap</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Dashboard</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="posts.html">Posts</a></li>
+                <li><a href="/accounts">Accounts</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Welcome, Brad</a></li>
+                <li><a href="/login">Logout</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Accounts <small>Manage
+                        Accounts</small>
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown create">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Create Content
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a type="button" data-toggle="modal" data-target="#addPage">Add Account</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="/" class="list-group-item active main-color-bg">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+                    </a>
+                    <a href="/products" class="list-group-item"><span class="glyphicon glyphicon-list-alt"
+                            aria-hidden="true"></span> Products <span class="badge">12</span></a>
+                    <a href="posts.html" class="list-group-item"><span class="glyphicon glyphicon-pencil"
+                            aria-hidden="true"></span> Posts <span class="badge">33</span></a>
+                    <a style="background-color: darkgrey;" href="/accounts" class="list-group-item"><span class="glyphicon glyphicon-user"
+                            aria-hidden="true"></span>
+                        Accounts <span class="badge">203</span></a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <!-- Website Overview -->
+                <div class="panel panel-default">
+                    <div class="panel-heading main-color-bg">
+                        <h3 class="panel-title">Accounts</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" placeholder="Filter Accounts">
+                            </div>
+                        </div>
+                        <br>
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>Jill Smith</td>
+                                <td>jillsmith@gmail.com</td>
+                                <td>Dec 12, 2016</td>
+                                <td><a class="btn btn-default" href="edit.html">Edit</a> <a class="btn btn-danger"
+                                        href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Eve Jackson</td>
+                                <td>ejackson@yahoo.com</td>
+                                <td>Dec 13, 2016</td>
+                                <td><a class="btn btn-default" href="edit.html">Edit</a> <a class="btn btn-danger"
+                                        href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Stephanie Landon</td>
+                                <td>landon@yahoo.com</td>
+                                <td>Dec 14, 2016</td>
+                                <td><a class="btn btn-default" href="edit.html">Edit</a> <a class="btn btn-danger"
+                                        href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>Mike Johnson</td>
+                                <td>mjohnson@gmail.com</td>
+                                <td>Dec 15, 2016</td>
+                                <td><a class="btn btn-default" href="edit.html">Edit</a> <a class="btn btn-danger"
+                                        href="#">Delete</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+</section>
