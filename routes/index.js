@@ -3,9 +3,7 @@ var router = express.Router();
 const productController = require('../controllers/productController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Dashboard' });
-});
+router.get('/', productController.index);
 
 router.get('/login', function(req, res, next) {
     res.render('login', { title: "Admin Area | Account Login" });
