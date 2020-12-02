@@ -105,9 +105,12 @@
                 <td>{{name}}</td>
                 <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                 <td>{{price}} VND</td>
-                <td><a class="btn btn-default" href="products/edit/{{_id}}" method="get">Edit</a> 
-                <a class="btn btn-danger"
-                    href="products/delete/{{_id}}">Delete</a></td>
+                <td><a class="btn btn-default" href="products/edit/{{_id}}" method="get">Edit</a></td>
+                <td>
+                  <form action="products/delete/{{_id}}" method="post">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  </form>
+                </td>
               </tr>
               {{/each}}
               <tr>

@@ -96,3 +96,10 @@ exports.upadate = async(req, res, next) => {
     var sizestr = size.join(",");
     res.render('products/update', { title: product.name, product, women, men, sizestr });
 }
+
+exports.delete = async(req, res, next) => {
+    var id = req.params.id;
+
+    await productModel.delete(id);
+    res.redirect('/products');
+}
