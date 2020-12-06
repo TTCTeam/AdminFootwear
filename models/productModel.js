@@ -65,4 +65,12 @@ exports.updateOne = async(footwear, id) => {
         }
     });
 
+}}
+
+exports.delete = async(id) => {
+    const productCollection = db().collection('Procduct');
+    await productCollection.deleteOne({_id: ObjectID(id)}, function (err, result) {
+        assert.strictEqual(null, err);
+        console.log('Delete successful');
+    });
 }
