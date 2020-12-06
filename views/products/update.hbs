@@ -30,8 +30,8 @@
     <form method="POST" onsubmit="return preUpdate()">
         <div class="form-group">
             <label for="name">Name</label>
-            <textarea class="form-control" name="name"  rows="1" id="name">{{product.name}}</textarea>
-            
+            <textarea class="form-control" name="name" rows="1" id="name">{{product.name}}</textarea>
+
         </div>
         <div class="row">
             <div class="col">
@@ -40,9 +40,9 @@
                     value={{product.price}}>
             </div>
             <div class="col">
-                <label for="publisher">Publisher</label>
-                <input name="publisher" type="text" class="form-control" placeholder="Publisher" id="publisher"
-                    value={{product.publisher}}>
+                <label for="brand">Publisher</label>
+                <input name="brand" type="text" class="form-control" placeholder="Brand" id="brand"
+                    value={{product.brand}}>
             </div>
         </div>
         <div class="row">
@@ -64,15 +64,15 @@
                 <div class="col-sm-10">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="women"
-                            {{women}}>
-                        <label class="form-check-label" for="gridRadios1">
+                            {{women}} >
+                        <label class="form-check-label" for="gridRadios1" style="margin-left: 15px;">
                             Women
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="men"
-                            {{men}}>
-                        <label class="form-check-label" for="gridRadios2">
+                            {{men}} >
+                        <label class="form-check-label" for="gridRadios2" style="margin-left: 15px;">
                             Men
                         </label>
                     </div>
@@ -82,19 +82,19 @@
         <div class="form-group">
             <label for="formGroupExampleInput">Images cover URL:</label>
             {{#each product.images as | item i|}}
-            <input name="images" type="text" class="form-control" id="ImageInput{{i}}" placeholder="Image {{i}} "
+            <input name="images" type="file" class="form-control" id="ImageInput{{i}}" placeholder="Image {{i}} "
                 value={{item}}>
             {{/each}}
         </div>
         <div class="form-group">
             <label for="discription">Discription</label>
-            <input type="text" class="form-control" id="discription" placeholder="Discription input"
-                value={{discription}}>
+            <textarea class="form-control" name="discription" rows="7" id="discription">{{predescription}}</textarea>
+
         </div>
         <div class="form-group">
             <label for="manuafacturer">Manuafacturer</label>
-            <input type="text" class="form-control" id="manuafacturer" placeholder="Manuafacturer ....."
-                value={{manuafacturer}}>
+            <textarea class="form-control" name="manuafacturer" rows="7" id="manuafacturer">{{manuafacturer}}</textarea>
+
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <button type="reset" class="btn btn-primary">Cancel</button>

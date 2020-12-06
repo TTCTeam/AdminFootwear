@@ -2,25 +2,46 @@ const productModel = require('../models/productModel');
 
 
 exports.index = async(req, res, next) => {
+    var pageNumber = req.query.page;
+    const filter = {};
+    const nPerPage = 12;
+    let totalProduct = 0;
+    console.log(filter);
+    console.log(pageNumber);
+    console.log(nPerPage);
 
-    const products = await productModel.list();
+    const products = await productModel.paging(filter, pageNumber, nPerPage);
     //footwears.cover_arr = [];
     products.forEach(element => {
         element.cover_arr = [];
         try {
             element.cover_arr.push(element.images[0]);
         } catch (error) {
-
+            console.log(error);
         }
     });
-    /*  console.log(products);
-     console.log(products.cover_arr); */
-    res.render('products', { title: 'Products', products });
+
+    totalProduct = await productModel.count();
+
+    let pagination = {
+            page: pageNumber, // The current page the user is on
+            pageCount: Math.ceil(totalProduct / nPerPage) // The total number of available pages
+        }
+        /*  console.log(products);
+         console.log(products.cover_arr); */
+    res.render('products', { title: 'Products', products, pagination });
 }
 
 exports.add_get = (req, res, next) => {
 
     res.render('addproduct', {});
+}
+
+exports.delete = async(req, res, next) => {
+    var id = req.params.id;
+
+    await productModel.delete(id);
+    res.redirect('/products');
 }
 
 exports.add = async(req, res, next) => {
@@ -37,7 +58,14 @@ exports.add = async(req, res, next) => {
 exports.editrender = async(req, res, next) => {
     const id = req.params.id;
     const product = await productModel.findById(id);
-    console.log(product);
+
+    const discription = product.description.p;
+    const arr = [];
+    discription.forEach(element => {
+        arr.push(element);
+    });
+    const predescription = arr.join("");
+    console.log(predescription);
     const size = product.size;
     var sizestr = size.join(",");
     /*  console.log(size);
@@ -49,7 +77,7 @@ exports.editrender = async(req, res, next) => {
     } else {
         women = "checked";
     }
-    res.render('products/update', { title: product.name, product, women, men, sizestr });
+    res.render('products/update', { title: product.name, product, women, men, sizestr, predescription });
 }
 
 exports.upadate = async(req, res, next) => {

@@ -11,6 +11,9 @@ var accountsRouter = require('./routes/accounts');
 
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + 'views/partials');
+var Handlebars = require('handlebars');
+var paginate = require('handlebars-paginate');
+hbs.registerHelper('paginate', paginate);
 
 var app = express();
 
