@@ -41,7 +41,6 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="/products/add">Add Product</a></li>
-            <li><a href="#">Add Post</a></li>
             <li><a href="#">Add User</a></li>
           </ul>
         </div>
@@ -85,7 +84,13 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-md-12">
-                <input class="form-control" type="text" placeholder="Filter Products..." name="q">
+                <form action="/" class="search-wrap">
+                  <div class="form-group">
+                    <input method="POST" name="q" type="search" class="form-control search" placeholder="Search"
+                      value="">
+                  </div>
+                </form>
+                {{!-- <input method="POSt" class="form-control search" type="search" placeholder="Search Products..." name="q"> --}}
               </div>
             </div>
             <br>
@@ -148,44 +153,3 @@
   <p>Copyright AdminStrap, &copy; 2017</p>
 </footer>
 
-<!-- Add Page -->
-<div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-              aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add Page</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Page Title</label>
-            <input type="text" class="form-control" placeholder="Page Title">
-          </div>
-          <div class="form-group">
-            <label>Page Body</label>
-            <textarea name="editor1" class="form-control" placeholder="Page Body"></textarea>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> Published
-            </label>
-          </div>
-          <div class="form-group">
-            <label>Meta Tags</label>
-            <input type="text" class="form-control" placeholder="Add Some Tags...">
-          </div>
-          <div class="form-group">
-            <label>Meta Description</label>
-            <input type="text" class="form-control" placeholder="Add Meta Description...">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>

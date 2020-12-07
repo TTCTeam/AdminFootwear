@@ -20,9 +20,9 @@ exports.paging = async(filter, pageNumber, nPerPage) => {
 
     return product;
 }
-exports.count = async() => {
+exports.count = async(filter) => {
     const productCollection = db().collection('Procduct');
-    return await productCollection.find({}).count();
+    return await productCollection.find(filter).count();
 }
 
 exports.delete = async(id) => {
@@ -64,8 +64,7 @@ exports.updateOne = async(footwear, id) => {
             images: footwear.images
         }
     });
-
-}}
+}
 
 exports.delete = async(id) => {
     const productCollection = db().collection('Procduct');

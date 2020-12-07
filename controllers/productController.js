@@ -1,10 +1,18 @@
 const productModel = require('../models/productModel');
 
 
-exports.index = async(req, res, next) => {
-    var pageNumber = req.query.page;
+exports.index = async (req, res, next) => {
+    var pageNumber = req.query.page || 1;
     const filter = {};
-    const nPerPage = 12;
+
+    var searchName = "";
+    if (req.query.q != undefined) {
+        searchName = req.query.q;
+    }
+
+    filter.name = { $regex: searchName, $options: "$i" };
+
+    const nPerPage = 10;
     let totalProduct = 0;
     console.log(filter);
     console.log(pageNumber);
@@ -21,14 +29,15 @@ exports.index = async(req, res, next) => {
         }
     });
 
-    totalProduct = await productModel.count();
+    totalProduct = await productModel.count(filter);
 
+    
     let pagination = {
-            page: pageNumber, // The current page the user is on
-            pageCount: Math.ceil(totalProduct / nPerPage) // The total number of available pages
-        }
-        /*  console.log(products);
-         console.log(products.cover_arr); */
+        page: pageNumber, // The current page the user is on
+        pageCount: Math.ceil(totalProduct / nPerPage) // The total number of available pages
+    }
+    /*  console.log(products);
+     console.log(products.cover_arr); */
     res.render('products', { title: 'Products', products, pagination });
 }
 
@@ -37,14 +46,14 @@ exports.add_get = (req, res, next) => {
     res.render('addproduct', {});
 }
 
-exports.delete = async(req, res, next) => {
+exports.delete = async (req, res, next) => {
     var id = req.params.id;
 
     await productModel.delete(id);
     res.redirect('/products');
 }
 
-exports.add = async(req, res, next) => {
+exports.add = async (req, res, next) => {
     const item = {
         name: req.body.name,
         price: req.body.price,
@@ -55,7 +64,7 @@ exports.add = async(req, res, next) => {
     //res.render('addproduct', {});
     res.redirect('/products');
 }
-exports.editrender = async(req, res, next) => {
+exports.editrender = async (req, res, next) => {
     const id = req.params.id;
     const product = await productModel.findById(id);
 
@@ -80,7 +89,7 @@ exports.editrender = async(req, res, next) => {
     res.render('products/update', { title: product.name, product, women, men, sizestr, predescription });
 }
 
-exports.upadate = async(req, res, next) => {
+exports.upadate = async (req, res, next) => {
     var name = req.body.name;
     var sizestr = req.body.size;
     var price = req.body.price;
@@ -125,7 +134,7 @@ exports.upadate = async(req, res, next) => {
     res.render('products/update', { title: product.name, product, women, men, sizestr });
 }
 
-exports.delete = async(req, res, next) => {
+exports.delete = async (req, res, next) => {
     var id = req.params.id;
 
     await productModel.delete(id);
