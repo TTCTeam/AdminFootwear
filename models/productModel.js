@@ -58,17 +58,19 @@ exports.updateOne = async(footwear, id) => {
             name: footwear.name,
             price: footwear.price,
             amount: footwear.amount,
-            publisher: footwear.publisher,
+            brand: footwear.brand,
             gender: footwear.gender,
             size: footwear.size,
-            images: footwear.images
+            images: footwear.images,
+            discription: footwear.discription,
+            manufacturer: footwear.manufacturer
         }
     });
 }
 
 exports.delete = async(id) => {
     const productCollection = db().collection('Procduct');
-    await productCollection.deleteOne({_id: ObjectID(id)}, function (err, result) {
+    await productCollection.deleteOne({ _id: ObjectID(id) }, function(err, result) {
         assert.strictEqual(null, err);
         console.log('Delete successful');
     });

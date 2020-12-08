@@ -27,7 +27,7 @@
 </header>
 
 <div class="container">
-    <form method="POST" onsubmit="return preUpdate()">
+    <form method="POST" enctype="multipart/form-data" onsubmit="return preUpdate()">
         <div class="form-group">
             <label for="name">Name</label>
             <textarea class="form-control" name="name" rows="1" id="name">{{product.name}}</textarea>
@@ -63,15 +63,15 @@
                 <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="women"
-                            {{women}} >
+                        <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="women"
+                            {{women}}>
                         <label class="form-check-label" for="gridRadios1" style="margin-left: 15px;">
                             Women
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="men"
-                            {{men}} >
+                        <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="men"
+                            {{men}}>
                         <label class="form-check-label" for="gridRadios2" style="margin-left: 15px;">
                             Men
                         </label>
@@ -82,22 +82,28 @@
         <div class="form-group">
             <label for="formGroupExampleInput">Images cover URL:</label>
             {{#each product.images as | item i|}}
-            <input name="images" type="file" class="form-control" id="ImageInput{{i}}" placeholder="Image {{i}} "
-                value={{item}}>
+            <div class="input {{i}}">
+                <input name="images{{i}}" type="text" class="form-control" id="ImageInput{{i}}"
+                    placeholder="Image {{i}}" value={{item}} >
+                <input name="imagesfile{{i}}" type="file" class="form-control" id="ImageInput{{i}}"
+                    placeholder="Image {{i}} " value={{item}}>
+            </div>
             {{/each}}
-        </div>
-        <div class="form-group">
-            <label for="discription">Discription</label>
-            <textarea class="form-control" name="discription" rows="7" id="discription">{{predescription}}</textarea>
 
-        </div>
-        <div class="form-group">
-            <label for="manuafacturer">Manuafacturer</label>
-            <textarea class="form-control" name="manuafacturer" rows="7" id="manuafacturer">{{manuafacturer}}</textarea>
+            <div class="form-group">
+                <label for="discription">Discription</label>
+                <textarea class="form-control" name="discription" rows="7"
+                    id="discription">{{predescription}}</textarea>
 
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <button type="reset" class="btn btn-primary">Cancel</button>
+            </div>
+            <div class="form-group">
+                <label for="manuafacturer">Manuafacturer</label>
+                <textarea class="form-control" name="manufacturer" rows="7"
+                    id="manuafacturer">{{premanufacturer}}</textarea>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="reset" class="btn btn-primary">Cancel</button>
     </form>
 </div>
 

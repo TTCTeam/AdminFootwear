@@ -2,6 +2,10 @@ body {
     background: #f4f4f4;
 }
 
+.form-group .input {
+    margin-bottom: 15px;
+}
+
 .col-md-9 .panel-body .table.table-striped.table-hover tr td img.img-fluid {
     width: 75px;
     height: 75px;
