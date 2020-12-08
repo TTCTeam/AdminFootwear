@@ -12,6 +12,16 @@ exports.index = async (req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
+    if (req.query.brand != undefined) {
+        const brand=req.query.brand;
+        filter.brand=brand;
+    }
+
+    if (req.query.style != undefined) {
+        const style=req.query.style;
+        filter.style=style;
+    }
+
     const nPerPage = 10;
     let totalProduct = 0;
     console.log(filter);

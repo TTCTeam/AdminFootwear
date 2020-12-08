@@ -71,6 +71,82 @@
           <a href="/accounts" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Accounts <span class="badge">203</span></a>
         </div>
+        <form action="/products">
+          <div class="border mb-1">
+            <h3>Brand</h3>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="brand" value="NIKE" onchange="this.form.submit()">
+                  <span>Nike</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="brand" value="ADIDAS" onchange="this.form.submit()">
+                  <span>Adidas</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="brand" value="MERREL" onchange="this.form.submit()">
+                  <span>Merrel</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="brand" value="GUCCI" onchange="this.form.submit()">
+                  <span>Gucci</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="brand" value="SKECHERS" onchange="this.form.submit()">
+                  <span>Skechers</span>
+                </label>
+              </li>
+
+            </ul>
+          </div>
+        
+          <div class="border mb-1">
+            <h3>Style</h3>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="style" value="slip-on" onchange="this.form.submit()">
+                  <span>Slip Ons</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="style" value="boot" onchange="this.form.submit()">
+                  <span>Boots</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="style" value="sandal" onchange="this.form.submit()">
+                  <span>Sandals</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="style" value="lace-up" onchange="this.form.submit()">
+                  <span>Lace Ups</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" method="POST" name="style" value="oxford" onchange="this.form.submit()">
+                  <span>Oxfords</span>
+                </label>
+              </li>
+
+            </ul>
+          </div>
+        </form>
+        <a href="/products">Xoá tất cả</a>
       </div>
 
       <div class="col-md-9">
