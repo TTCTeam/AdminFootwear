@@ -3,7 +3,7 @@ const fs = require('fs');
 const mv = require('mv');
 
 const productModel = require('../models/productModel');
-
+const accountModel = require('../models/accountModel');
 
 exports.index = async(req, res, next) => {
     var pageNumber = req.query.page || 1;
@@ -16,12 +16,12 @@ exports.index = async(req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
-    const nPerPage = 10;
-    let totalProduct = 0;
-    console.log(filter);
-    console.log(pageNumber);
-    console.log(nPerPage);
-
+    const nPerPage = 6;
+    let totalAccount = await accountModel.count({});
+    let totalProduct = await productModel.count(filter);
+    let totalPage = Math.ceil(totalProduct / nPerPage);
+    pageNumber = (pageNumber > totalPage) ? totalPage : pageNumber;
+    pageNumber = parseInt(pageNumber);
     const products = await productModel.paging(filter, pageNumber, nPerPage);
     //footwears.cover_arr = [];
     products.forEach(element => {
@@ -32,17 +32,58 @@ exports.index = async(req, res, next) => {
             console.log(error);
         }
     });
-
-    totalProduct = await productModel.count(filter);
-
-
-    let pagination = {
-            page: pageNumber, // The current page the user is on
-            pageCount: Math.ceil(totalProduct / nPerPage) // The total number of available pages
+    var limit = (totalPage > 5) ? 5 : totalPage;
+    //console.log(limit);
+    let n = parseInt(pageNumber / limit);
+    let page = [];
+    console.log(n);
+    let mid = (pageNumber % limit == 0) ? limit : (pageNumber - n * limit);
+    for (let i = 0; i < mid; i++) {
+        if (pageNumber % limit == 0) {
+            page.push((n - 1) * limit + 1 + i);
+        } else {
+            page.push(n * limit + 1 + i);
         }
-        /*  console.log(products);
-         console.log(products.cover_arr); */
-    res.render('products', { title: 'Products', products, pagination });
+
+
+    }
+    console.log(page);
+
+    if (pageNumber % limit != 0) {
+        for (let j = pageNumber - n * limit; j < limit; j++) {
+            if (n * limit + 1 + j > totalPage) break;
+            page.push(n * limit + 1 + j);
+
+        }
+    }
+
+
+    let active = [];
+    for (let k = 0; k < page.length; k++) {
+        active.push("");
+    }
+    console.log(active);
+
+    let index = page.indexOf(pageNumber);
+    console.log(index);
+    active[index] = "active";
+
+
+    let paginate = [];
+    let pagination = {};
+    for (let h = 0; h < page.length; h++) {
+        paginate[h] = {};
+        paginate[h].page = page[h];
+        paginate[h].active = active[h];
+    }
+
+    console.log(paginate);
+    pagination.paginate = paginate;
+    pagination.previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+    pagination.nextPage = (pageNumber == totalPage) ? pageNumber : pageNumber + 1;
+    pagination.totalPage = totalPage;
+
+    res.render('products', { title: 'Products', products, pagination, totalProduct, totalAccount });
 }
 
 exports.add_get = (req, res, next) => {

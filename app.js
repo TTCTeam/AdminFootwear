@@ -11,9 +11,11 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var accountsRouter = require('./routes/accounts');
 
+const usersApiRoute = require('./routes/api/user_api');
+
 var hbs = require('hbs');
-hbs.registerPartials(__dirname + 'views/partials');
-var Handlebars = require('handlebars');
+hbs.registerPartials(__dirname + '/views/partials');
+
 var paginate = require('handlebars-paginate');
 hbs.registerHelper('paginate', paginate);
 
@@ -28,12 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//Route
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/accounts', accountsRouter);
 
+//API Route
+app.use('/api/users', usersApiRoute);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
