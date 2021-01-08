@@ -89,7 +89,7 @@ function replaceProducts(page) {
 
     //call server API to render products
     //đối số data truyền vào để gửi về server
-    $.getJSON('/api/users/paging', { page, filter, sort }, function(data) {
+    $.getJSON('/api/users/product_paging', { page, filter, sort }, function(data) {
         // // compile the template
         let template = Handlebars.compile($('#products').html());
         // // execute the compiled template and print the output to the console
@@ -105,4 +105,30 @@ function replaceProducts(page) {
     });
 
 
+}
+
+function replaceAccounts(page) {
+
+    let filter = {};
+
+    if (page == "current") {
+        let page1 = $('.active.page a').html() || 1;
+        console.log(page1);
+        page = parseInt(page1);
+    }
+
+    $.getJSON('/api/users/account_paging', { page, filter, sort }, function(data) {
+        // // compile the template
+        let template = Handlebars.compile($('#account-list-template').html());
+        // // execute the compiled template and print the output to the console
+        let accounts = data.accounts;
+        let product_html = template({ accounts });
+        $('#accounts').html(product_html);
+
+        let template_nav_paging = Handlebars.compile($('#paging-nav-template').html());
+        let pagination = data.pagination;
+        let paging_nav_html = template_nav_paging({ pagination });
+        $('#paging-nav').html(paging_nav_html);
+
+    });
 }

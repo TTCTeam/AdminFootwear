@@ -4,6 +4,6 @@ const router = express.Router();
 
 const userControllerApi = require('../../controllers/api/userController');
 
-router.get('/paging', userControllerApi.productsPaging);
-
+router.get('/product_paging', userControllerApi.productsPaging);
+router.get('/account_paging', userControllerApi.accountsPaging);
 module.exports = router;
