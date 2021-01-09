@@ -17,8 +17,12 @@
         <li><a href="/accounts">Accounts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Welcome, Brad</a></li>
-        <li><a href="login.html">Logout</a></li>
+        <li><a href="#">Welcome {{user.fullname}}</a></li>
+         {{#if user}}
+          <li><a href="login.html">Logout</a></li>
+          {{else}}
+        
+          {{/if}}     
       </ul>
     </div>
     <!--/.nav-collapse -->

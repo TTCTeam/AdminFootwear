@@ -1,23 +1,39 @@
-function preLogin() {
+// function preLogin() {
+//     let username = $('#username').val();
+//     let password = $('#password').val();
+//     console.log(username);
+//     console.log(password);
+//     var notif = document.getElementById('notif');
+//     if (username == "foootwear") {
+//         if (password == "TTC123") {
+//             return true;
+//         }
+//     }
+//     notif.innerHTML("Account and password do not match.");
+//     return false;
+// }
+
+function preSignUp() {
     let username = $('#username').val();
     let password = $('#password').val();
-    console.log(username);
+    let retypepassword = $('#retypepassword').val();
+
     console.log(password);
+    console.log(username);
+
     var notif = document.getElementById('notif');
-    if (username == "foootwear") {
-        if (password == "TTC123") {
-            return true;
-        }
+    if (password != retypepassword) {
+        notif.innerHTML = "Retype password and password do not match";
+        return false;
     }
-    notif.innerHTML("Account and password do not match.");
-    return false;
+    return true;
 }
 
 //Clone the hidden element and shows it
-$('.add-one').click(function() {
-    $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
-    attach_delete();
-});
+// $('.add-one').click(function() {
+//     $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
+//     attach_delete();
+// });
 
 
 //Attach functionality to delete buttons
@@ -129,6 +145,46 @@ function replaceAccounts(page) {
         let pagination = data.pagination;
         let paging_nav_html = template_nav_paging({ pagination });
         $('#paging-nav').html(paging_nav_html);
+
+    });
+}
+
+function checkExistUsername(username) {
+
+    $.getJSON('/api/users/is-exist-username', { username }, function(data) {
+        if (data == true) {
+
+            $('#username-info').addClass('error').removeClass('success').html('Username is aldready taken!');
+            $(":submit").attr("disabled", true);
+
+        } else {
+            $('#username-info').addClass('success').removeClass('error').html('You can take this username!');
+            var check = $("#email-info").hasClass('success');
+            if (check == true) {
+                $(":submit").removeAttr("disabled");
+            }
+
+        }
+
+    });
+}
+
+function checkExistEmail(email) {
+
+    $.getJSON('/api/users/is-exist-email', { email }, function(data) {
+        if (data == true) {
+            console.log(data);
+            $('#email-info').addClass('error').removeClass('success').html('Email is aldready taken!');
+            $(":submit").attr("disabled", true);
+
+        } else {
+            $('#email-info').addClass('success').removeClass('error').html('You can take this username!');
+            var check = $("#username-info").hasClass('success');
+            if (check == true) {
+                $(":submit").removeAttr("disabled");
+            }
+
+        }
 
     });
 }

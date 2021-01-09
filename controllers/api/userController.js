@@ -1,5 +1,15 @@
 const userServices = require('../../models/user/userServices');
 
+exports.accountExist_Username = async(req, res, next) => {
+    res.json(await userServices.isUsernameExist(req.query.username));
+
+}
+
+exports.accountExist_Email = async(req, res, next) => {
+    res.json(await userServices.isEmailExist(req.query.email));
+
+}
+
 exports.productsPaging = async(req, res, next) => {
     var pageNumber = req.query.page || 1;
     //ten color brand style material price

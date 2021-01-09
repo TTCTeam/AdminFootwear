@@ -2,6 +2,14 @@ body {
     background: #f4f4f4;
 }
 
+.error {
+    color: #c0392b;
+}
+
+.success {
+    color: green;
+}
+
 .form-group .input {
     margin-bottom: 15px;
 }
@@ -10,7 +18,6 @@ body {
     width: 75px;
     height: 75px;
 }
-
 
 label input[type="checkbox"] {
     display: none;

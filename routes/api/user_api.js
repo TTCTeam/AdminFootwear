@@ -6,4 +6,6 @@ const userControllerApi = require('../../controllers/api/userController');
 
 router.get('/product_paging', userControllerApi.productsPaging);
 router.get('/account_paging', userControllerApi.accountsPaging);
+router.get('/is-exist-username', userControllerApi.accountExist_Username);
+router.get('/is-exist-email', userControllerApi.accountExist_Email);
 module.exports = router;

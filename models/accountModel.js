@@ -2,6 +2,16 @@ const { ObjectID } = require('mongodb');
 const { db } = require('../dal/db');
 var assert = require('assert')
 
+exports.addNewAccount = async(newUser) => {
+    const accountCollection = db().collection('Account');
+
+    await accountCollection.insertOne(newUser, function(err, result) {
+        assert.strictEqual(null, err);
+        console.log('Add successful');
+    });
+
+}
+
 exports.list = async() => {
     const accountCollection = db().collection('Account');
     const account = await accountCollection.find({}).toArray();

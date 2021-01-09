@@ -1,34 +1,38 @@
+const bcrypt = require('bcrypt');
+
 const accountModel = require('../models/accountModel');
 const productModel = require('../models/productModel');
 
-// exports.index = async(req, res, next) => {
+exports.addNewAccount = async(req, res, next) => {
+    const { displayname, username, email, password, type } = req.body;
 
-//     var pageNumber = req.query.page || 1;
-//     const filter = {};
+    const newUser = {
+        username,
+        email,
+        password,
+        type
+    }
+    newUser.fullname = displayname;
 
-//     var searchName = "";
-//     if (req.query.q != undefined) {
-//         searchName = req.query.q;
-//     }
+    const saltRounds = 18;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(newUser.password, salt);
+    newUser.password = hash;
+    newUser.age = "2000";
+    newUser.telephone = "+84..";
+    newUser.gender = "";
+    newUser.address = "";
+    newUser.avatar = "/images/users/user.png";
+    newUser.status = "active";
+    newUser.code = 0;
+    newUser.time = new Date();
+    console.log(newUser);
 
-//     filter.username = { $regex: searchName, $options: "$i" };
+    await accountModel.addNewAccount(newUser);
 
-//     const nPerPage = 6;
-//     let totalAccount = 0;
+    res.render('user/add_user', { title: "Add Account", message: "This account was added successfully! Continue to add another account." })
 
-//     const accounts = await accountModel.paging(filter, pageNumber, nPerPage);
-
-//     totalAccount = await accountModel.count(filter);
-
-//     let pagination = {
-//         page: pageNumber, // The current page the user is on
-//         pageCount: Math.ceil(totalAccount / nPerPage) // The total number of available pages
-//     }
-
-//     console.log(accounts);
-
-//     res.render('accounts', { title: 'Accounts', accounts, pagination });
-// }
+}
 
 exports.index = async(req, res, next) => {
     var pageNumber = req.query.page || 1;
@@ -101,5 +105,5 @@ exports.index = async(req, res, next) => {
     pagination.nextPage = (pageNumber == totalPage) ? pageNumber : pageNumber + 1;
     pagination.totalPage = totalPage;
 
-    res.render('accounts', { title: 'Products', accounts, pagination, totalProduct, totalAccount });
+    res.render('accounts', { title: 'Accounts', accounts, pagination, totalProduct, totalAccount });
 }
