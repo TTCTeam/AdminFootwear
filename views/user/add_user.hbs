@@ -12,14 +12,13 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Dashboard</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="posts.html">Posts</a></li>
-                <li><a href="users.html">Users</a></li>
+                <li class="active"><a href="/">Dashboard</a></li>
+                <li><a href="/products">Products</a></li>       
+                <li><a href="/accounts">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Welcome, Brad</a></li>
-                <li><a href="login.html">Logout</a></li>
+                <li><a href="#">Welcome, {{user.fullname}}</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
@@ -70,8 +69,6 @@
                     </a>
                     <a href="/products" class="list-group-item"><span class="glyphicon glyphicon-list-alt"
                             aria-hidden="true"></span> Products <span class="badge">12</span></a>
-                    <a href="posts.html" class="list-group-item"><span class="glyphicon glyphicon-pencil"
-                            aria-hidden="true"></span> Posts <span class="badge">33</span></a>
                     <a href="users.html" class="list-group-item"><span class="glyphicon glyphicon-user"
                             aria-hidden="true"></span>
                         Users <span class="badge">203</span></a>
@@ -84,53 +81,121 @@
                     </div>
                     <div class="panel-body">
                         <form method="post" onsubmit="return preSignUp()">
+                            <div class="top-menu" style="display: inline;">
+                                
                             <label class="success">{{message}}</label>
+                            {{#if edit}}
+                              <a style="float: right;" href="/accounts/change_password">Change password</a>
+                        {{/if}}
+                            </div>
                             <div class="form-group">
                                 <label>Display Name</label>
-                                <input type="text" class="form-control" id="displayname" name="displayname" placeholder="Display Name"
-                                    required value={{displayname}}>
+                                <textarea class="form-control" name="displayname" rows="1" id="displayname"
+                                    {{yourseflt}} required>{{account.fullname}}</textarea>
+
                             </div>
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Username"
-                                    onchange="checkExistUsername(this.value)" required  value={{username}}>
-                                    <div id="username-info"></div>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Username" onchange="checkExistUsername(this.value)" required
+                                    {{default_render}} value={{account.username}}>
+                                <div id="username-info"></div>
                             </div>
                             <div class="form-group">
-                                 <label class="form-check-label" >Type</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="type"
-                                            id="usertype" value="user" >
-                                        <label class="form-check-label" for="usertype">
-                                            User
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="type"
-                                            id="admintype" value="admin">
-                                        <label class="form-check-label" for="admintype">
-                                            Admin
-                                        </label>
-                                    </div>
+                                <label class="form-check-label">Type</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="usertype" value="user"
+                                        {{user}} {{type}}>
+                                    <label class="form-check-label" for="usertype">
+                                        User
+                                    </label>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="admintype"
+                                        value="admin" {{admin}} {{type}}>
+                                    <label class="form-check-label" for="admintype">
+                                        Admin
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                     onchange="checkExistEmail(this.value)" value={{email}}>
-                                    <div id="email-info"></div>
+                                    onchange="checkExistEmail(this.value)" {{default_render}} value={{account.email}}>
+                                <div id="email-info"></div>
                             </div>
 
+                            <div class="form-group">
+                                <label>Year of birth</label>
+                                <input type="text" class="form-control" id="age" name="age" placeholder="2000"
+                                    onchange="checkExistEmail(this.value)" {{yourseflt}} value={{account.age}}>
 
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder=""  required>
                             </div>
                             <div class="form-group">
-                                <label>Retype Password</label>
-                                <input type="password" class="form-control" id="retypepassword" name="retypepassword" placeholder="" required >
+                                <label>Phone Number</label>
+                                <input type="text" class="form-control" id="telephone" name="telephone"
+                                    placeholder="+84..." onchange="checkExistEmail(this.value)" {{yourseflt}}
+                                    value={{account.telephone}}>
+
                             </div>
-                            <div class="error" id="notif" style="margin-bottom: 5px;"></div>
-                            <input type="submit" class="btn btn-default" value="Submit" >
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" id="address" name="address"
+                                    placeholder="123 Đường số 6" onchange="checkExistEmail(this.value)" {{yourseflt}}
+                                    value={{account.address}}>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Gender</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="women"
+                                        {{female}} {{gender}}>
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="men" value="male"
+                                        {{male}} {{gender}}>
+                                    <label class="form-check-label" for="men">
+                                        Male
+                                    </label>
+                                </div>
+                            </div>
+                            {{#if edit}}
+                           
+                            {{!-- <div id="change-password" style="display: none;">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Retype Password</label>
+                                    <input type="password" class="form-control" id="retypepassword"
+                                        name="retypepassword" placeholder="" required>
+                                </div>
+                                <div class="error" id="notif" style="margin-bottom: 5px;"></div>
+                            </div>
+                            --}}
+                            <input type="submit" class="btn btn-default" value="Submit">
+                            {{else}}
+
+                            {{/if}}
+                            {{#if create}}
+                            <div id="change-password" style="display: none;">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Retype Password</label>
+                                    <input type="password" class="form-control" id="retypepassword"
+                                        name="retypepassword" placeholder="" required>
+                                </div>
+                                <div class="error" id="notif" style="margin-bottom: 5px;"></div>
+                            </div>f{{/if}}
                         </form>
                     </div>
                 </div>

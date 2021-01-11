@@ -13,14 +13,21 @@
 //     return false;
 // }
 
+function checkValidPassword_Retype() {
+    let password = $('#newpassword').val();
+    let retypepassword = $('#retypepassword').val();
+    var notif = document.getElementById('notif');
+    if (password != retypepassword) {
+        notif.innerHTML = "Retype password and password do not match";
+        return false;
+    }
+    return true;
+}
+
+
 function preSignUp() {
-    let username = $('#username').val();
     let password = $('#password').val();
     let retypepassword = $('#retypepassword').val();
-
-    console.log(password);
-    console.log(username);
-
     var notif = document.getElementById('notif');
     if (password != retypepassword) {
         notif.innerHTML = "Retype password and password do not match";
@@ -187,4 +194,25 @@ function checkExistEmail(email) {
         }
 
     });
+}
+
+function checkValidPassword(password) {
+    $.getJSON('/api/users/is-correct-password', { password }, function(data) {
+        if (data == true) {
+            console.log(data);
+            $('#password-info').addClass('error').removeClass('success').html('Password is incorrect');
+            $(":submit").attr("disabled", true);
+
+        } else {
+            $('#password-info').addClass('success').removeClass('error');
+
+            $(":submit").removeAttr("disabled");
+        }
+    });
+}
+
+function clearError() {
+    if ($('#password-info').html() != "") {
+        $('#password-info').html() = "";
+    }
 }

@@ -2,23 +2,14 @@ var express = require('express');
 var router = express.Router();
 const productController = require('../controllers/productController');
 
-function loggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
 
-        return next();
+router.get('/', productController.index);
 
-    } else {
-        res.redirect('/login');
-    }
-};
+router.post('/add', productController.add);
+router.get('/edit/:id', productController.editrender);
+router.post('/edit/:id', productController.upadate);
 
-router.get('/', loggedIn, productController.index);
+router.get('/add', productController.add_get);
 
-router.post('/add', loggedIn, productController.add);
-router.get('/edit/:id', loggedIn, productController.editrender);
-router.post('/edit/:id', loggedIn, productController.upadate);
-
-router.get('/add', loggedIn, productController.add_get);
-
-router.post('/delete/:id', loggedIn, productController.delete);
+router.post('/delete/:id', productController.delete);
 module.exports = router;

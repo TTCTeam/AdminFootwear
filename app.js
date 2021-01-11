@@ -42,11 +42,23 @@ app.use(function(req, res, next) {
     res.locals.user = req.user;
     next();
 });
+
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+
+        return next();
+
+    } else {
+        res.redirect('/login');
+    }
+};
+
+
 //Route
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', productsRouter);
-app.use('/accounts', accountsRouter);
+app.use('/users', loggedIn, usersRouter);
+app.use('/products', loggedIn, productsRouter);
+app.use('/accounts', loggedIn, accountsRouter);
 
 //API Route
 app.use('/api/users', usersApiRoute);

@@ -2,6 +2,29 @@ const { ObjectID } = require('mongodb');
 const { db } = require('../dal/db');
 var assert = require('assert')
 
+exports.updatePassword = async(newpassword, id) => {
+    const productCollection = db().collection('Account');
+    await productCollection.updateOne({ _id: ObjectID(id) }, {
+        $set: {
+            password: newpassword
+        }
+    });
+}
+
+exports.updateOne = async(account, id) => {
+    const productCollection = db().collection('Account');
+    await productCollection.updateOne({ _id: ObjectID(id) }, {
+        $set: {
+            fullname: account.fullname,
+            telephone: account.telephone,
+            age: account.age,
+            address: account.address,
+            gender: account.gender,
+            type: account.type
+        }
+    });
+}
+
 exports.addNewAccount = async(newUser) => {
     const accountCollection = db().collection('Account');
 

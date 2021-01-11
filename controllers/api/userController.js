@@ -1,5 +1,10 @@
 const userServices = require('../../models/user/userServices');
 
+exports.checkValidPassword = async(req, res, next) => {
+
+    res.json(await userServices.isCorrectPassword(req.query.password, req.user._id));
+}
+
 exports.accountExist_Username = async(req, res, next) => {
     res.json(await userServices.isUsernameExist(req.query.username));
 

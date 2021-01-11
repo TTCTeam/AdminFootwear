@@ -2,11 +2,13 @@ body {
     background: #f4f4f4;
 }
 
-.error {
+.error,
+.blocked {
     color: #c0392b;
 }
 
-.success {
+.success,
+.actived {
     color: green;
 }
 

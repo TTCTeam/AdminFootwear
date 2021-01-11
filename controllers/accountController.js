@@ -1,7 +1,88 @@
 const bcrypt = require('bcrypt');
+const { disabled } = require('../app');
 
 const accountModel = require('../models/accountModel');
 const productModel = require('../models/productModel');
+const userServices = require('../models/user/userServices');
+
+
+exports.updatePassword = async(req, res, next) => {
+    const { password, newpassword } = req.body;
+    const user = req.user;
+    let check = await userServices.isCorrectPassword(password, user._id);
+    const saltRounds = 5;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const password_hash = bcrypt.hashSync(newpassword, salt);
+    console.log(user);
+    console.log(password);
+    console.log(newpassword);
+    console.log(password_hash);
+    if (check) {
+        await accountModel.updatePassword(password_hash, user._id);
+        res.redirect('/login');
+    } else {
+        res.render('/accounts/change_password', { title: "Admin Area | Change Pasowrd", message: "Wrong password.Please try again" })
+    }
+
+}
+
+exports.editupadate = async(req, res, next) => {
+    const id = req.params.id;
+
+    const { displayname, type, gender, age, telephone, address } = req.body;
+
+    const newUser = {
+        type,
+        gender,
+        age,
+        telephone,
+        address
+    }
+    newUser.fullname = displayname;
+
+    console.log(newUser);
+    await accountModel.updateOne(newUser, id);
+    res.redirect('/accounts');
+}
+
+exports.editrender = async(req, res, next) => {
+    const id = req.params.id;
+    let yourseflt = (id == req.user._id);
+    let edit = true;
+    if (yourseflt == false) {
+        yourseflt = "readonly";
+        edit = false;
+    } else {
+        yourseflt = "";
+    }
+
+    console.log(id);
+    const account = await userServices.findById(id);
+    let user = "user",
+        admin = "admin";
+    let female = "",
+        male = "";
+    let type = "",
+        gender = "";
+    if (yourseflt == "readonly") {
+        type = gender = "disabled";
+    }
+    if (account.type == admin) {
+        admin = "checked";
+    } else {
+        user = "checked";
+    }
+    if (account.gender == "men" || account.gender == "male") {
+        male = "checked";
+    } else {
+        female = "checked";
+    }
+    let default_render = "disabled";
+    console.log(account);
+
+    res.render('user/add_user', { title: "Admin Area | Account Detail", account, edit, user, admin, male, female, gender, type, yourseflt, default_render });
+}
+
 
 exports.addNewAccount = async(req, res, next) => {
     const { displayname, username, email, password, type } = req.body;
