@@ -28,20 +28,22 @@ exports.updatePassword = async(req, res, next) => {
 
 exports.editupadate = async(req, res, next) => {
     const id = req.params.id;
-
-    const { displayname, type, gender, age, telephone, address } = req.body;
-
-    const newUser = {
-        type,
-        gender,
-        age,
-        telephone,
-        address
+    let yourseflt = (id == req.user._id);
+    const { displayname, type, gender, age, telephone, address, status } = req.body;
+    if (yourseflt == true) {
+        const newUser = {
+            type,
+            gender,
+            age,
+            telephone,
+            address
+        }
+        newUser.fullname = displayname;
+        console.log(newUser);
+        await accountModel.updateOne(newUser, id);
+    } else {
+        await accountModel.updateStatus(id, status);
     }
-    newUser.fullname = displayname;
-
-    console.log(newUser);
-    await accountModel.updateOne(newUser, id);
     res.redirect('/accounts');
 }
 
@@ -64,6 +66,16 @@ exports.editrender = async(req, res, next) => {
         male = "";
     let type = "",
         gender = "";
+    let blocked = "",
+        active = "",
+        actived = "";
+    if (account.status == "blocked") {
+        blocked = "checked";
+    } else if (account.status == "active") {
+        active = "checked";
+    } else {
+        actived = "checked";
+    }
     if (yourseflt == "readonly") {
         type = gender = "disabled";
     }
@@ -80,7 +92,7 @@ exports.editrender = async(req, res, next) => {
     let default_render = "disabled";
     console.log(account);
 
-    res.render('user/add_user', { title: "Admin Area | Account Detail", account, edit, user, admin, male, female, gender, type, yourseflt, default_render });
+    res.render('user/add_user', { title: "Admin Area | Account Detail", account, edit, user, admin, male, female, gender, type, yourseflt, default_render, blocked, active, actived });
 }
 
 
