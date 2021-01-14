@@ -18,7 +18,7 @@ exports.index = async(req, res, next) => {
     filter.name = { $regex: searchName, $options: "$i" };
 
 
-    const nPerPage = 6;
+    const nPerPage = 9;
     let totalAccount = await accountModel.count({});
     let totalProduct = await productModel.count(filter);
     let totalPage = Math.ceil(totalProduct / nPerPage);
