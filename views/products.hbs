@@ -18,11 +18,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Welcome {{user.fullname}}</a></li>
-         {{#if user}}
-          <li><a href="login.html">Logout</a></li>
-          {{else}}
-        
-          {{/if}}     
+        {{#if user}}
+        <li><a href="login.html">Logout</a></li>
+        {{else}}
+
+        {{/if}}
       </ul>
     </div>
     <!--/.nav-collapse -->
@@ -76,79 +76,190 @@
           <a href="/accounts" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Accounts <span class="badge">{{totalAccount}}</span></a>
         </div>
+
+
+
         <form action="/products">
           <div class="border mb-1">
-            <h3>Brand</h3>
-            <ul>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="brand" value="NIKE" onchange="this.form.submit()">
-                  <span>Nike</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="brand" value="ADIDAS" onchange="this.form.submit()">
-                  <span>Adidas</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="brand" value="MERREL" onchange="this.form.submit()">
-                  <span>Merrel</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="brand" value="GUCCI" onchange="this.form.submit()">
-                  <span>Gucci</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="brand" value="SKECHERS" onchange="this.form.submit()">
-                  <span>Skechers</span>
-                </label>
-              </li>
+            <div class="well">
+              <h3>Brand</h3>
+              <ul style="list-style: none;">
+                <li>
+                  <input type="checkbox" name="brand" value="NIKE" onclick="replaceProducts('current')" id="brand1">
+                  <label class="form-check-label" for="brand1">
+                    Nike
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="brand" value="ADIDAS" onclick="replaceProducts('current')" id="brand2">
+                  <label class="form-check-label" for="brand2">
+                    Adidas
+                  </label>
 
-            </ul>
+                </li>
+                <li>
+                  <input type="checkbox" name="brand" value="HERMES" onclick="replaceProducts('current')" id="brand3">
+
+                  <label class="form-check-label" for="brand3">
+                    Hermes
+                  </label>
+                </li>
+
+                <li>
+                  <input type="checkbox" name="brand" value="GUCCI" onclick="replaceProducts('current')" id="brand4">
+
+                  <label class="form-check-label" for="brand4">
+                    Gucci
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="brand" value="LOUIS VUITTON" onclick="replaceProducts('current')"
+                    id="brand5">
+
+                  <label class="form-check-label" for="brand5">
+                    Louis Vuitton
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="brand" value="MEREL" onclick="replaceProducts('current')" id="brand6">
+
+                  <label class="form-check-label" for="brand6">
+                    Merrel
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="brand" value="SKECHERS" onclick="replaceProducts('current')" id="brand7">
+
+                  <label class="form-check-label" for="brand7">
+                    Skechers
+                  </label>
+                </li>
+
+              </ul>
+            </div>
+
           </div>
-        
-          <div class="border mb-1">
-            <h3>Style</h3>
-            <ul>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="style" value="slip-on" onchange="this.form.submit()">
-                  <span>Slip Ons</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="style" value="boot" onchange="this.form.submit()">
-                  <span>Boots</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="style" value="sandal" onchange="this.form.submit()">
-                  <span>Sandals</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="style" value="lace-up" onchange="this.form.submit()">
-                  <span>Lace Ups</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" method="POST" name="style" value="oxford" onchange="this.form.submit()">
-                  <span>Oxfords</span>
-                </label>
-              </li>
 
-            </ul>
+          <div class="border mb-1">
+            <div class="well">
+              <h3>Style</h3>
+              <ul style="list-style: none;">
+                <li>
+
+                  <input type="checkbox" name="style" value="slip-on" onclick="replaceProducts('current')" id="style1">
+
+                  <label class="form-check-label" for="style1">
+                    Slip Ons
+                  </label>
+                </li>
+                <li>
+
+                  <input type="checkbox" name="style" value="boot" onclick="replaceProducts('current')" id="style2">
+
+                  <label class="form-check-label" for="style2">
+                    Boots
+                  </label>
+                </li>
+                <li>
+
+                  <input type="checkbox" name="style" value="sandal" onclick="replaceProducts('current')" id="style3">
+
+                  <label class="form-check-label" for="style3">
+                    Sandals
+                  </label>
+                </li>
+                <li>
+
+                  <input type="checkbox" name="style" value="lace-up" onclick="replaceProducts('current')" id="style4">
+
+                  <label class="form-check-label" for="style4">
+                    Lace Ups
+                  </label>
+                </li>
+                <li>
+
+                  <input type="checkbox" name="style" value="oxford" onclick="replaceProducts('current')" id="style5">
+
+                  <label class="form-check-label" for="style5">
+                    Oxfords
+                  </label>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="border mb-1">
+            <div class="well">
+              <h3>Colors</h3>
+                                <ul>
+                                    <li><input type="checkbox" name="color" value="black"
+                                            onclick="replaceProducts('current')" id="color1">
+
+                                        <label class="form-check-label" for="color1">
+                                            Black
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="white"
+                                            onclick="replaceProducts('current')" id="color2">
+
+                                        <label class="form-check-label" for="color2">
+                                            White
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="blue"
+                                            onclick="replaceProducts('current')" id="color3">
+
+                                        <label class="form-check-label" for="color3">
+                                            Blue
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="red"
+                                            onclick="replaceProducts('current')" id="color4">
+
+                                        <label class="form-check-label" for="color4">
+                                            Red
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="green"
+                                            onclick="replaceProducts('current')" id="color5">
+
+                                        <label class="form-check-label" for="color5">
+                                            Green
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="grey"
+                                            onclick="replaceProducts('current')" id="color6">
+
+                                        <label class="form-check-label" for="color6">
+                                            Grey
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="orange"
+                                            onclick="replaceProducts('current')" id="color7">
+
+                                        <label class="form-check-label" for="color7">
+                                            Orange
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="cream"
+                                            onclick="replaceProducts('current')" id="color8">
+
+                                        <label class="form-check-label" for="color8">
+                                            Cream
+                                        </label>
+                                    </li>
+                                    <li><input type="checkbox" name="color" value="brown"
+                                            onclick="replaceProducts('current')" id="color9">
+
+                                        <label class="form-check-label" for="color9">
+                                            Brown
+                                        </label>
+                                    </li>
+                                </ul>
+            </div>
+
           </div>
         </form>
         <a href="/products">Xoá tất cả</a>
@@ -175,33 +286,33 @@
             </div>
             <br>
 
-          <table class="table table-striped table-hover" id="product-list-template">
-    <tr>
-        <th>Cover</th>
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    {{#each products }}
-    <tr>
-        <td>
-            <img src="{{cover_arr}}" class="img-fluid" alt="Image">
-        </td>
-        <td>{{name}}</td>
-        <td>{{brand}}</td>
-        <td>{{price}} VND</td>
-        <td><a class="btn btn-default" href="products/edit/{{_id}}" method="get">Edit</a></td>
-        <td>
-            <form action="products/delete/{{_id}}" method="post">
-                <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    {{/each}}
-</table>
-<script type="text/x-handlebars" id="products">
+            <table class="table table-striped table-hover" id="product-list-template">
+              <tr>
+                <th>Cover</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              {{#each products }}
+              <tr>
+                <td>
+                  <img src="{{cover_arr}}" class="img-fluid" alt="Image">
+                </td>
+                <td>{{name}}</td>
+                <td>{{brand}}</td>
+                <td>{{price}} VND</td>
+                <td><a class="btn btn-default" href="products/edit/{{_id}}" method="get">Edit</a></td>
+                <td>
+                  <form action="products/delete/{{_id}}" method="post">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+            <script type="text/x-handlebars" id="products">
     <tr>
         <th>Cover</th>
         <th>Name</th>

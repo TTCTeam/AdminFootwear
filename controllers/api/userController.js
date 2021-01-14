@@ -32,7 +32,7 @@ exports.productsPaging = async(req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
-    const nPerPage = 6;
+    const nPerPage = 9;
 
 
     let totalProduct = await userServices.count(filter);
