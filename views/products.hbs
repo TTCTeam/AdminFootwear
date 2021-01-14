@@ -82,31 +82,31 @@
             <ul>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="brand" value="NIKE" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="brand" value="NIKE">
                   <span>Nike</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="brand" value="ADIDAS" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="brand" value="ADIDAS" >
                   <span>Adidas</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="brand" value="MERREL" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="brand" value="MERREL"  >
                   <span>Merrel</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="brand" value="GUCCI" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="brand" value="GUCCI"  >
                   <span>Gucci</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="brand" value="SKECHERS" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="brand" value="SKECHERS"  >
                   <span>Skechers</span>
                 </label>
               </li>
@@ -119,31 +119,31 @@
             <ul>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="style" value="slip-on" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="style" value="slip-on"  >
                   <span>Slip Ons</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="style" value="boot" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="style" value="boot"  >
                   <span>Boots</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="style" value="sandal" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="style" value="sandal"  >
                   <span>Sandals</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="style" value="lace-up" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="style" value="lace-up"  >
                   <span>Lace Ups</span>
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" method="POST" name="style" value="oxford" onchange="this.form.submit()">
+                  <input type="checkbox" method="POST" name="style" value="oxford"  >
                   <span>Oxfords</span>
                 </label>
               </li>
@@ -193,11 +193,19 @@
         <td>{{brand}}</td>
         <td>{{price}} VND</td>
         <td><a class="btn btn-default" href="products/edit/{{_id}}" method="get">Edit</a></td>
+        {{#if delete}}
+        <td>
+            <form action="products/restore/{{_id}}" method="post">
+                <button class="btn btn-danger" type="submit">Restore</button>
+            </form>
+        </td>
+        {{else}}
         <td>
             <form action="products/delete/{{_id}}" method="post">
                 <button class="btn btn-danger" type="submit">Delete</button>
             </form>
         </td>
+        {{/if}}
     </tr>
     {{/each}}
 </table>
@@ -219,11 +227,19 @@
         <td>\{{brand}}</td>
         <td>\{{price}} VND</td>
         <td><a class="btn btn-default" href="products/edit/\{{_id}}" method="get">Edit</a></td>
+      \{{#if delete}}
+        <td>
+            <form action="products/restore/\{{_id}}" method="post">
+                <button class="btn btn-danger" type="submit">Restore</button>
+            </form>
+        </td>
+        \{{else}}
         <td>
             <form action="products/delete/\{{_id}}" method="post">
                 <button class="btn btn-danger" type="submit">Delete</button>
             </form>
         </td>
+        \{{/if}}
     </tr>
     \{{/each}}
 

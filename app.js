@@ -15,6 +15,7 @@ var productsRouter = require('./routes/products');
 var accountsRouter = require('./routes/accounts');
 
 const usersApiRoute = require('./routes/api/user_api');
+const productsApiRoute = require('./routes/api/product_api');
 
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials');
@@ -62,6 +63,7 @@ app.use('/accounts', loggedIn, accountsRouter);
 
 //API Route
 app.use('/api/users', usersApiRoute);
+app.use('/api/products', productsApiRoute);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));

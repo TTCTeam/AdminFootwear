@@ -1,17 +1,26 @@
-// function preLogin() {
-//     let username = $('#username').val();
-//     let password = $('#password').val();
-//     console.log(username);
-//     console.log(password);
-//     var notif = document.getElementById('notif');
-//     if (username == "foootwear") {
-//         if (password == "TTC123") {
-//             return true;
-//         }
-//     }
-//     notif.innerHTML("Account and password do not match.");
-//     return false;
-// }
+function comfirmRestore(id) {
+    var result = confirm("Do you want to restore this product.");
+    if (result) {
+        $.getJSON('/api/products/restore', { id }, function(data) {
+            if (data == true) {
+                location.replace("/products");
+            }
+        });
+    }
+}
+
+function comfirmDelete(id) {
+    var result = confirm("Do you want to restore this product.");
+    if (result) {
+        $.getJSON('/api/products/delete', { id }, function(data) {
+            if (data == true) {
+                location.replace("/products");
+            }
+        });
+    }
+}
+
+
 
 function checkValidPassword_Retype() {
     let password = $('#newpassword').val();

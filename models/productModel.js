@@ -4,6 +4,15 @@ var assert = require('assert');
 const { db } = require('../dal/db');
 const cloudinary = require('../cloudinary/index');
 
+exports.restoreProduct = async(id) => {
+    const productCollection = db().collection('Procduct');
+    await productCollection.updateOne({ _id: ObjectID(id) }, {
+        $set: {
+            delete: false
+        }
+    });
+    return true;
+}
 
 exports.uploadImageGetURL = async(image_path) => {
     var uploaded = await cloudinary.uploader.upload(image_path, { folder: "footwear_images" }, function(error, result) {
@@ -35,10 +44,12 @@ exports.count = async(filter) => {
 
 exports.delete = async(id) => {
     const productCollection = db().collection('Procduct');
-    // await productCollection.deleteOne({ _id: ObjectID(id) }, function(err, result) {
-    //     assert.strictEqual(null, err);
-    //     console.log('Delete successful');
-    // });
+    await productCollection.updateOne({ _id: ObjectID(id) }, {
+        $set: {
+            delete: true
+        }
+    });
+    return true;
 }
 
 
@@ -71,15 +82,13 @@ exports.updateOne = async(footwear, id) => {
             size: footwear.size,
             images: footwear.images,
             discription: footwear.discription,
-            manufacturer: footwear.manufacturer
+            manufacturer: footwear.manufacturer,
+            style: footwear.style,
+            color: footwear.color,
+            width: footwear.width,
+            sold: footwear.sold,
+            delete: footwear.delete,
+            material: footwear.material
         }
-    });
-}
-
-exports.delete = async(id) => {
-    const productCollection = db().collection('Procduct');
-    await productCollection.deleteOne({ _id: ObjectID(id) }, function(err, result) {
-        assert.strictEqual(null, err);
-        console.log('Delete successful');
     });
 }

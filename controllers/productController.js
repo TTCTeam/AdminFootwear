@@ -17,6 +17,7 @@ exports.index = async(req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
+
     const nPerPage = 6;
     let totalAccount = await accountModel.count({});
     let totalProduct = await productModel.count(filter);
@@ -89,12 +90,11 @@ exports.index = async(req, res, next) => {
 
 exports.add_get = (req, res, next) => {
 
-    res.render('addproduct', {});
+    res.render('products/update', { title: "Admin Area | Add Product", edit: false });
 }
 
 exports.delete = async(req, res, next) => {
     var id = req.params.id;
-
     await productModel.delete(id);
     res.redirect('/products');
 }
@@ -132,6 +132,13 @@ exports.editrender = async(req, res, next) => {
 
     const size = product.size;
     var sizestr = size.join(",");
+
+    const color = product.color;
+    let colorstr = color.join(",");
+
+    const width = product.width;
+    let widthstr = width.join(",");
+
     /*  console.log(size);
      console.log(sizestr); */
     let men;
@@ -141,7 +148,89 @@ exports.editrender = async(req, res, next) => {
     } else {
         women = "checked";
     }
-    res.render('products/update', { title: product.name, product, women, men, sizestr, predescription, premanufacturer });
+    res.render('products/update', { title: product.name, product, women, men, sizestr, predescription, premanufacturer, colorstr, widthstr, edit: true });
+}
+
+exports.addNewProduct = async(req, res, next) => {
+    const form = formidable({ multiples: true });
+    form.parse(req, async(err, fields, files) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        console.log(fields);
+        fields.brand = fields.brand.toUpperCase();
+
+        fields.gender = fields.gender || "women";
+
+        var p1 = [];
+        p1 = fields.discription.split(".");
+        fields.discription = {};
+        fields.discription.p = p1;
+
+        var p2 = [];
+        p2 = fields.manufacturer.split(".");
+        fields.manufacturer = {};
+        fields.manufacturer.p = p2;
+
+        var size = [];
+        size = fields.size.split(",");
+        fields.size = [];
+        fields.size = size;
+
+        var color = [];
+        color = fields.color.split(",");
+        fields.color = [];
+        fields.color = color;
+
+        var width = [];
+        width = fields.width.split(",");
+        fields.width = [];
+        fields.width = width;
+
+
+
+        var images = [];
+
+        images.push(fields.images0);
+        images.push(fields.images1);
+        images.push(fields.images2);
+        images.push(fields.images3);
+
+        const imagesfile0 = files.imagesfile0;
+        const imagesfile1 = files.imagesfile1;
+        const imagesfile2 = files.imagesfile2;
+        const imagesfile3 = files.imagesfile3;
+        if (imagesfile0 && imagesfile0.size > 0) {
+            //var fileName = imagesfile0.path.split('\\').pop() + '.' + imagesfile0.name.split('.').pop();
+            images[0] = await productModel.uploadImageGetURL(imagesfile0.path);
+        }
+        if (imagesfile1 && imagesfile1.size > 0) {
+            images[1] = await productModel.uploadImageGetURL(imagesfile1.path);
+        }
+        if (imagesfile2 && imagesfile2.size > 0) {
+            images[2] = await productModel.uploadImageGetURL(imagesfile2.path);
+        }
+        if (imagesfile3 && imagesfile3.size > 0) {
+            images[3] = await productModel.uploadImageGetURL(imagesfile3.path);
+        }
+
+        delete fields.images0;
+        delete fields.images1;
+        delete fields.images2;
+        delete fields.images3;
+
+        fields.images = images;
+        fields.delete = false;
+
+        productModel.add(fields).then(() => {
+
+            let message = "Create successfully!"
+            res.render('products/update', { title: "Admin Area | Add Product", message });
+
+        });
+
+    });
 }
 
 exports.upadate = async(req, res, next) => {
@@ -151,6 +240,8 @@ exports.upadate = async(req, res, next) => {
             next(err);
             return;
         }
+
+        fields.gender = fields.gender || "women";
 
         var p1 = [];
         p1 = fields.discription.split(".");

@@ -27,21 +27,30 @@
 </header>
 
 <div class="container">
+    {{#if edit}}
+    {{#if product.delete}}
+    <button class="btn btn-primary" onclick=" comfirmRestore('{{product._id}}')" style="float: right;">Restore </button>
+    {{else}}
+    <button class="btn btn-primary" onclick=" comfirmDelete('{{product._id}}')" style="float: right;">Delete </button>
+    {{/if}}
+    {{else}}
+    {{/if}}
+    <div class="success">{{message}}</div>
     <form method="POST" enctype="multipart/form-data" onsubmit="return preUpdate()">
         <div class="form-group">
             <label for="name">Name</label>
-            <textarea class="form-control" name="name" rows="1" id="name">{{product.name}}</textarea>
+            <textarea class="form-control" name="name" rows="1" id="name" required>{{product.name}}</textarea>
 
         </div>
         <div class="row">
             <div class="col">
                 <label for="price">Price</label>
-                <input name="price" type="number" class="form-control" placeholder="Price" id="price"
+                <input name="price" type="number" class="form-control" placeholder="Price" id="price" required
                     value={{product.price}}>
             </div>
             <div class="col">
                 <label for="brand">Publisher</label>
-                <input name="brand" type="text" class="form-control" placeholder="Brand" id="brand"
+                <input name="brand" type="text" class="form-control" placeholder="Brand" id="brand" required
                     value={{product.brand}}>
             </div>
         </div>
@@ -49,15 +58,45 @@
             <div class="col">
                 <label for="size">Size</label>
                 <input name="size" type="text" class="form-control" placeholder="33, 34, 35, 36 ,37 ,43 .." id="size"
-                    value={{sizestr}}>
+                    required value={{sizestr}}>
             </div>
             <div class="col">
                 <label for="amount">Amount</label>
                 <input name="amount" type="number" class="form-control" placeholder="Availabled Amount " id="amount"
-                    value={{product.amount}}>
+                    required value={{product.amount}}>
+            </div>
+            <div class="col">
+                <label for="amount">Sold</label>
+                <input name="sold" type="number" class="form-control" placeholder="Sold " id="sold"
+                    required value={{product.sold}}>
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="size">Width</label>
+                <input name="width" type="text" class="form-control" placeholder="M,W .." id="width"
+                    required value={{widthstr}}>
+            </div>
+            <div class="col">
+                <label for="color">Color</label>
+                <input name="color" type="text" class="form-control" placeholder="White, Red .." id="color"
+                    required value={{colorstr}}>
+            </div>
+            <div class="col">
+                <label for="style">Style</label>
+                <input name="style" type="text" class="form-control" placeholder="oxford,sandal,slip-on,.." id="style"
+                    required value={{product.style}}>
+            </div>
+            <div class="col">
+                <label for="color">Material</label>
+                <input name="material" type="text" class="form-control" placeholder="leather,suede,.." id="material"
+                    required value={{product.material}}>
+            </div>
+            
+        </div>
+
         <fieldset class="form-group">
             <div class="row">
                 <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
@@ -70,8 +109,7 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="men"
-                            {{men}}>
+                        <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="men" {{men}}>
                         <label class="form-check-label" for="gridRadios2" style="margin-left: 15px;">
                             Men
                         </label>
@@ -81,14 +119,42 @@
         </fieldset>
         <div class="form-group">
             <label for="formGroupExampleInput">Images cover URL:</label>
+            {{#if edit}}
             {{#each product.images as | item i|}}
             <div class="input {{i}}">
                 <input name="images{{i}}" type="text" class="form-control" id="ImageInput{{i}}"
-                    placeholder="Image {{i}}" value={{item}} >
+                    placeholder="Image {{i}}" value={{item}}>
                 <input name="imagesfile{{i}}" type="file" class="form-control" id="ImageInput{{i}}"
-                    placeholder="Image {{i}} " value={{item}}>
+                    placeholder="Image {{i}} " value={{item}} required>
             </div>
             {{/each}}
+            {{else}}
+            <div class="input 0">
+                <input name="images0" type="text" class="form-control" id="ImageInput0" placeholder="Image0"
+                    value={{item}}>
+                <input name="imagesfile0" type="file" class="form-control" id="ImageInput0" placeholder="Image0 "
+                    value={{item}} required>
+            </div>
+            <div class="input  1">
+                <input name="images 1" type="text" class="form-control" id="ImageInput1" placeholder="Image1"
+                    value={{item}}>
+                <input name="imagesfile1" type="file" class="form-control" id="ImageInput1" placeholder="Image1 "
+                    value={{item}} required>
+            </div>
+            <div class="input  2">
+                <input name="images2" type="text" class="form-control" id="ImageInput2" placeholder="Image2"
+                    value={{item}}>
+                <input name="imagesfile2" type="file" class="form-control" id="ImageInput2" placeholder="Image2 "
+                    value={{item}} required>
+            </div>
+            <div class="input  3">
+                <input name="images3" type="text" class="form-control" id="ImageInput3" placeholder="Image3"
+                    value={{item}}>
+                <input name="imagesfile3" type="file" class="form-control" id="ImageInput3" placeholder="Image3 "
+                    value={{item}} required>
+            </div>
+            {{/if}}
+
 
             <div class="form-group">
                 <label for="discription">Discription</label>
@@ -102,8 +168,12 @@
                     id="manuafacturer">{{premanufacturer}}</textarea>
 
             </div>
+            {{#if edit}}
             <button type="submit" class="btn btn-primary">Update</button>
-            <button type="reset" class="btn btn-primary">Cancel</button>
+            {{else}}
+            <button type="submit" class="btn btn-primary">Save </button>
+            {{/if}}
+            <button class="btn btn-primary"><a href="/products" style="color: aliceblue;">Cancel</a> </button>
     </form>
 </div>
 

@@ -32,6 +32,7 @@ exports.productsPaging = async(req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
+
     const nPerPage = 6;
 
 
