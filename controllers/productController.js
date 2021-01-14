@@ -4,6 +4,7 @@ const mv = require('mv');
 
 const productModel = require('../models/productModel');
 const accountModel = require('../models/accountModel');
+const cloudinary = require('../cloudinary/index');
 
 exports.index = async(req, res, next) => {
     var pageNumber = req.query.page || 1;
@@ -145,7 +146,7 @@ exports.editrender = async(req, res, next) => {
 
 exports.upadate = async(req, res, next) => {
     const form = formidable({ multiples: true });
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async(err, fields, files) => {
         if (err) {
             next(err);
             return;
@@ -178,61 +179,18 @@ exports.upadate = async(req, res, next) => {
         const imagesfile2 = files.imagesfile2;
         const imagesfile3 = files.imagesfile3;
         if (imagesfile0 && imagesfile0.size > 0) {
-            var fileName = imagesfile0.path.split('\\').pop() + '.' + imagesfile0.name.split('.').pop();
-            console.log(fileName);
-
-            mv(imagesfile0.path, process.env.FOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            });
-            /* mv(imagesfile0.path, process.env.ADMINFOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            }); */
-            images[0] = '/images/Footwear/' + fileName;
-            console.log(images[0]);
+            //var fileName = imagesfile0.path.split('\\').pop() + '.' + imagesfile0.name.split('.').pop();
+            images[0] = await productModel.uploadImageGetURL(imagesfile0.path);
         }
         if (imagesfile1 && imagesfile1.size > 0) {
-            var fileName = imagesfile1.path.split('\\').pop() + '.' + imagesfile1.name.split('.').pop();
-            mv(imagesfile1.path, process.env.FOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            });
-            /* mv(imagesfile1.path, process.env.ADMINFOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            }); */
-            images[1] = '/images/Footwear/' + fileName;
-            console.log(images[1]);
+            images[1] = await productModel.uploadImageGetURL(imagesfile1.path);
         }
         if (imagesfile2 && imagesfile2.size > 0) {
-            var fileName = imagesfile2.path.split('\\').pop() + '.' + imagesfile2.name.split('.').pop();
-            mv(imagesfile2.path, process.env.FOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            });
-            /* mv(imagesfile2.path, process.env.ADMINFOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            }); */
-            images[2] = '/images/Footwear/' + fileName;
-            console.log(images[2]);
+            images[2] = await productModel.uploadImageGetURL(imagesfile2.path);
         }
         if (imagesfile3 && imagesfile3.size > 0) {
-            var fileName = imagesfile3.path.split('\\').pop() + '.' + imagesfile3.name.split('.').pop();
-            mv(imagesfile3.path, process.env.FOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                if (error) throw error;
-
-            });
-            /*  mv(imagesfile3.path, process.env.ADMINFOOTWEAR_FOLDER_IMAGES + '\\' + fileName, function(error) {
-                 if (error) throw error;
-
-             }); */
-            images[3] = '/images/Footwear/' + fileName;
-            console.log(images[3]);
+            images[3] = await productModel.uploadImageGetURL(imagesfile3.path);
         }
-
-
 
         delete fields.images0;
         delete fields.images1;
@@ -240,9 +198,6 @@ exports.upadate = async(req, res, next) => {
         delete fields.images3;
 
         fields.images = images;
-
-        console.log("Oh la la");
-        console.log(fields);
 
         const id = req.params.id;
         productModel.updateOne(fields, id).then(() => {

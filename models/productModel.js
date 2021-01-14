@@ -1,8 +1,16 @@
 const { ObjectID } = require('mongodb');
+var assert = require('assert');
+
 const { db } = require('../dal/db');
-var assert = require('assert')
+const cloudinary = require('../cloudinary/index');
 
 
+exports.uploadImageGetURL = async(image_path) => {
+    var uploaded = await cloudinary.uploader.upload(image_path, { folder: "footwear_images" }, function(error, result) {
+        console.log(result, error);
+    });
+    return uploaded.url;
+}
 
 exports.list = async() => {
     const productCollection = db().collection('Procduct');
@@ -27,10 +35,10 @@ exports.count = async(filter) => {
 
 exports.delete = async(id) => {
     const productCollection = db().collection('Procduct');
-    await productCollection.deleteOne({ _id: ObjectID(id) }, function(err, result) {
-        assert.strictEqual(null, err);
-        console.log('Delete successful');
-    });
+    // await productCollection.deleteOne({ _id: ObjectID(id) }, function(err, result) {
+    //     assert.strictEqual(null, err);
+    //     console.log('Delete successful');
+    // });
 }
 
 

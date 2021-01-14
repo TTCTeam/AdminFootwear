@@ -21,7 +21,7 @@ exports.updatePassword = async(req, res, next) => {
         await accountModel.updatePassword(password_hash, user._id);
         res.redirect('/login');
     } else {
-        res.render('/accounts/change_password', { title: "Admin Area | Change Pasowrd", message: "Wrong password.Please try again" })
+        res.render('user/change_password', { title: "Admin Area | Change Pasowrd", message: "Wrong password.Please try again" })
     }
 
 }
