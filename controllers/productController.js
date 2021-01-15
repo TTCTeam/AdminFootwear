@@ -114,7 +114,7 @@ exports.editrender = async(req, res, next) => {
     const id = req.params.id;
     const product = await productModel.findById(id);
 
-    const discription = product.description.p;
+    const discription = product.discription.p;
     const arr = [];
     discription.forEach(element => {
         arr.push(element);
