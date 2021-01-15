@@ -183,6 +183,9 @@ exports.addNewProduct = async(req, res, next) => {
 
         var color = [];
         color = fields.color.split(",");
+        color.forEach(element => {
+            element = element.trim();
+        });
         fields.color = [];
         fields.color = color;
 
