@@ -80,6 +80,34 @@
 
 
         <form action="/products">
+
+          <div class="border mb-1">
+            <div class="well">
+              <h3>Sort by</h3>
+              <ul style="list-style: none;">
+                <li>
+                  <div class="form-check">
+                    <input type="checkbox" name="sort" value="1" id="sort1" onclick="replaceProducts('current')">
+                    <label class="form-check-label" for="sort1">
+                      A - Z
+                    </label>
+                  </div>
+
+                </li>
+
+                <li>
+                  <div class="form-check">
+                    <input type="checkbox" name="sort" value="-1" onclick="replaceProducts('current')" id="sort2">
+                    <label class="form-check-label" for="sort2">
+                      Z - A
+                    </label>
+                  </div>
+
+                </li>
+
+              </ul>
+            </div>
+          </div>
           <div class="border mb-1">
             <div class="well">
               <h3>Brand</h3>
@@ -252,6 +280,29 @@
               </ul>
             </div>
 
+          </div>
+
+          <div class="border mb-1">
+            <div class="well">
+              <h3>Material</h3>
+              <ul style="list-style: none;">
+                <li>
+                  <input type="checkbox" name="material" value="leather" onclick="repl"
+                    onclick="replaceProducts('current')" id="material1">
+
+                  <label class="form-check-label" for="material1">
+                    Leather
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="material" value="suede" onclick="replaceProducts('current')"
+                    id="material2">
+                  <label class="form-check-label" for="material2">
+                    Suede
+                  </label>
+                </li>
+              </ul>
+            </div>
           </div>
         </form>
         <a href="/products">Xoá tất cả</a>
