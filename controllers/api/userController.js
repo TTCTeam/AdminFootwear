@@ -32,7 +32,7 @@ exports.productsPaging = async(req, res, next) => {
 
     filter.name = { $regex: searchName, $options: "$i" };
 
-    
+
     const nPerPage = 9;
 
 
@@ -48,7 +48,8 @@ exports.productsPaging = async(req, res, next) => {
         element.cover_arr.push(element.images[0]);
 
     });
-
+    console.log("footwears");
+    console.log(footwears);
     var limit = (totalPage > 5) ? 5 : totalPage;
     //console.log(limit);
     let n = parseInt(pageNumber / limit);
