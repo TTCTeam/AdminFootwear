@@ -122,30 +122,7 @@
                             </tr>
                             {{/each}}
                         </table>
-                        <script type="text/x-handlebars" id="account-list-template">
-                        <tr>
-                                <th>Avatar</th>
-                                <th>Full Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Age</th>
-                                <th>Edit</th>
-                              
-                            </tr>
-                            \{{#each accounts }}
-                            <tr>
-                                <td>
-                                    <img src="\{{avatar}}" class="img-fluid" alt="Image">
-                                </td>
-                                <td>\{{fullname}}</td>
-                                <td>\{{username}}</td>
-                                <td>\{{email}}</td>
-                                <td>\{{age}}</td>
-                                <td><a class="btn btn-default" href="accounts/edit/\{{_id}}" method="get">Edit</a></td>
-                               
-                            </tr>
-                            \{{/each}}
-                        </script>
+                        
                         <nav aria-label="Page navigation example" style="float: right;" id="paging-nav">
                             <ul class="pagination justify-content-end">
 
@@ -176,21 +153,45 @@
 <footer id="footer">
   <p>Copyright AdminStrap, &copy; 2017</p>
 </footer>
+<script type="text/x-handlebars" id="account-list-template">
+                        <tr>
+                                <th>Avatar</th>
+                                <th>Full Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Age</th>
+                                <th>Edit</th>
+                              
+                            </tr>
+                            \{{#each accounts }}
+                            <tr>
+                                <td>
+                                    <img src="\{{avatar}}" class="img-fluid" alt="Image">
+                                </td>
+                                <td>\{{fullname}}</td>
+                                <td>\{{username}}</td>
+                                <td>\{{email}}</td>
+                                <td>\{{age}}</td>
+                                <td><a class="btn btn-default" href="accounts/edit/\{{_id}}" method="get">Edit</a></td>
+                               
+                            </tr>
+                            \{{/each}}
+                        </script>
 <script type="text/x-handlebars" id="paging-nav-template">
   <ul class="pagination justify-content-end">
 
-    <li class=""><a onclick="replaceProducts(1)" href="">First</a></li>
+    <li class=""><a onclick="replaceAccounts(1)" href="">First</a></li>
 
-    <li class=""><a onclick="replaceProducts(\{{pagination.previousPage}})" href="">Prev</a></li>
+    <li class=""><a onclick="replaceAccounts(\{{pagination.previousPage}})" href="">Prev</a></li>
 
     \{{#each pagination.paginate}}
-    <li class="\{{active}} page"><a onclick="replaceProducts(\{{page}})">\{{page}}</a>
+    <li class="\{{active}} page"><a onclick="replaceAccounts(\{{page}})">\{{page}}</a>
     </li>
     \{{/each}}
 
-    <li class=""><a onclick="replaceProducts(\{{pagination.nextPage}})" href="">Next</a></li>
+    <li class=""><a onclick="replaceAccounts(\{{pagination.nextPage}})" href="">Next</a></li>
 
-    <li class=""><a onclick="replaceProducts(\{{pagination.totalPage}})" href="">Last</a></li>
+    <li class=""><a onclick="replaceAccounts(\{{pagination.totalPage}})" href="">Last</a></li>
 
   </ul>
 </script>

@@ -1,5 +1,5 @@
 const userServices = require('../../models/user/userServices');
-
+const accountModel = require('../../models/accountModel');
 exports.checkValidPassword = async(req, res, next) => {
 
     res.json(await userServices.isCorrectPassword(req.query.password, req.user._id));
@@ -120,7 +120,7 @@ exports.accountsPaging = async(req, res, next) => {
 
     const nPerPage = 6;
     let totalAccount = await accountModel.count(filter);
-    let totalProduct = await productModel.count({});
+
     let totalPage = Math.ceil(totalAccount / nPerPage);
     pageNumber = (pageNumber > totalPage) ? totalPage : pageNumber;
     pageNumber = parseInt(pageNumber);

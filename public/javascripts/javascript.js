@@ -149,7 +149,7 @@ function replaceAccounts(page) {
         page = parseInt(page1);
     }
 
-    $.getJSON('/api/users/account_paging', { page, filter, sort }, function(data) {
+    $.getJSON('/api/users/account_paging', { page, filter }, function(data) {
         // // compile the template
         let template = Handlebars.compile($('#account-list-template').html());
         // // execute the compiled template and print the output to the console
