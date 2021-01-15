@@ -114,7 +114,7 @@ exports.editrender = async(req, res, next) => {
     const id = req.params.id;
     const product = await productModel.findById(id);
 
-    const discription = product.discription.p;
+    const discription = product.description.p;
     const arr = [];
     discription.forEach(element => {
         arr.push(element);
@@ -250,9 +250,9 @@ exports.upadate = async(req, res, next) => {
         fields.gender = fields.gender || "women";
 
         var p1 = [];
-        p1 = fields.discription.split(".");
-        fields.discription = {};
-        fields.discription.p = p1;
+        p1 = fields.description.split(".");
+        fields.description = {};
+        fields.description.p = p1;
 
         var p2 = [];
         p2 = fields.manufacturer.split(".");
@@ -263,6 +263,20 @@ exports.upadate = async(req, res, next) => {
         size = fields.size.split(",");
         fields.size = [];
         fields.size = size;
+
+        var color = [];
+        color = fields.color.split(",");
+        color.forEach(element => {
+            element = element.trim();
+        });
+        fields.color = [];
+        fields.color = color;
+
+        var width = [];
+        width = fields.width.split(",");
+        fields.width = [];
+        fields.width = width;
+
 
         var images = [];
 
@@ -299,35 +313,7 @@ exports.upadate = async(req, res, next) => {
         const id = req.params.id;
         productModel.updateOne(fields, id).then(() => {
             productModel.findById(id).then((product) => {
-                console.log(product);
-                const size = product.size;
-                console.log(size);
-                var sizestr = "";
-                sizestr = size.join(",");
-                let men;
-                let women;
-                if (product.gender == "male" || product.gender == "men") {
-                    men = "checked";
-                } else {
-                    women = "checked";
-                }
-
-                const discription = product.description.p;
-                const arr = [];
-                discription.forEach(element => {
-                    arr.push(element);
-                });
-                const predescription = arr.join("");
-                console.log(predescription);
-
-                console.log(product.manufacturer);
-                const manufacturer = product.manufacturer.p;
-                const arr1 = [];
-                manufacturer.forEach(element => {
-                    arr1.push(element);
-                });
-                const premanufacturer = arr1.join("");
-                res.render('products/update', { title: product.name, product, women, men, sizestr, premanufacturer, predescription });
+                res.redirect('/products');
             });
         });
 

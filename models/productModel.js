@@ -81,7 +81,7 @@ exports.updateOne = async(footwear, id) => {
             gender: footwear.gender,
             size: footwear.size,
             images: footwear.images,
-            discription: footwear.discription,
+            description: footwear.description,
             manufacturer: footwear.manufacturer,
             style: footwear.style,
             color: footwear.color,
