@@ -114,9 +114,9 @@ exports.editrender = async(req, res, next) => {
     const id = req.params.id;
     const product = await productModel.findById(id);
 
-    const discription = product.description.p;
+    const description = product.description.p;
     const arr = [];
-    discription.forEach(element => {
+    description.forEach(element => {
         arr.push(element);
     });
     const predescription = arr.join("");
@@ -164,9 +164,9 @@ exports.addNewProduct = async(req, res, next) => {
         fields.gender = fields.gender || "women";
 
         var p1 = [];
-        p1 = fields.discription.split(".");
-        fields.discription = {};
-        fields.discription.p = p1;
+        p1 = fields.description.split(".");
+        fields.description = {};
+        fields.description.p = p1;
 
         var p2 = [];
         p2 = fields.manufacturer.split(".");
@@ -193,7 +193,7 @@ exports.addNewProduct = async(req, res, next) => {
         width = fields.width.split(",");
         fields.width = [];
         fields.width = width;
-
+        fields.delete = false;
 
 
         var images = [];
