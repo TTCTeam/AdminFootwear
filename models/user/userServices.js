@@ -32,9 +32,9 @@ exports.checkCredential = async(usernameOrEmail, password) => {
     if (user) {
         const check = await bcrypt.compareSync(password, user.password);
         if (!check) {
-            err = 0;
+            return err = 0;
         } else if (user.status == "blocked") {
-            err = -1;
+            return err = -1;
         }
     }
     return user;
