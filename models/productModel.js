@@ -30,7 +30,7 @@ exports.list = async() => {
 
 exports.paging = async(filter, pageNumber, nPerPage) => {
 
-    const product = await db().collection('Procduct').find(filter)
+    const product = await db().collection('Procduct').find(filter).sort({ name: sort })
         .limit(nPerPage)
         .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
         .toArray();

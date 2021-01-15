@@ -175,6 +175,9 @@ exports.addNewProduct = async(req, res, next) => {
 
         var size = [];
         size = fields.size.split(",");
+        size.forEach(element => {
+            element = element.trim();
+        });
         fields.size = [];
         fields.size = size;
 
