@@ -193,7 +193,7 @@ exports.addNewProduct = async(req, res, next) => {
         width = fields.width.split(",");
         fields.width = [];
         fields.width = width;
-
+        fields.delete = false;
 
 
         var images = [];
